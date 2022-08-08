@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import com.rectangle.service.imp.AnaylzeRectangleImp;
 
+import junit.framework.AssertionFailedError;
+
 public class RectangleTest {
 
 	private AnaylzeRectangleImp analyzeRectangle;
@@ -14,6 +16,15 @@ public class RectangleTest {
 	@Before
 	public void setup() {
 		analyzeRectangle = new AnaylzeRectangleImp();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void validateCorrectRenctangle() {
+		// Repeated point doesn't define a rectangle
+		Point l1 = new Point(4, 4);
+		Point r1 = new Point(4, 4);
+		new Rectangle(l1, r1);
+
 	}
 
 	@Test

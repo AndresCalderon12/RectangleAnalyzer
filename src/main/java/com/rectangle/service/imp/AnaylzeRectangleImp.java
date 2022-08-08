@@ -1,5 +1,7 @@
 package com.rectangle.service.imp;
 
+import java.util.HashMap;
+
 import com.rectangle.model.Point;
 import com.rectangle.model.Rectangle;
 import com.rectangle.service.AnalyzeRectangle;
@@ -43,62 +45,30 @@ public class AnaylzeRectangleImp implements AnalyzeRectangle {
 		Rectangle rectangle1 = organizePoints(topLeft1, bottomRight1);
 		Rectangle rectangle2 = organizePoints(topLeft2, bottomRight2);
 
-		// check proper Adjacent in the four possible positions
-		if (isProperAdjacentRight(rectangle1, rectangle2)) {
+		// generate a HashMap with all the possibilities based on true-type key-value or
+		// false-type
+		HashMap<Boolean, String> adjacencyMap = new HashMap<Boolean, String>();
+		adjacencyMap.put(isProperAdjacentRight(rectangle1, rectangle2), "proper adjacent right");
+		adjacencyMap.put(isProperAdjacentTop(rectangle1, rectangle2), "proper adjacent top");
+		adjacencyMap.put(isProperAdjacentLeft(rectangle1, rectangle2), "proper adjacent left");
+		adjacencyMap.put(isProperAdjacentBottom(rectangle1, rectangle2), "proper adjacent bottom");
+		adjacencyMap.put(isSubLineAdjacentRight(rectangle1, rectangle2), "adjacent sub-line Rigth");
+		adjacencyMap.put(isSubLineAdjacentTop(rectangle1, rectangle2), "adjacent sub-line top");
+		adjacencyMap.put(isSubLineAdjacentLeft(rectangle1, rectangle2), "adjacent sub-line left");
+		adjacencyMap.put(isSubLineAdjacentBottom(rectangle1, rectangle2), "adjacent sub-line bottom");
+		adjacencyMap.put(isAdjacentPartialRightTop(rectangle1, rectangle2), "adjacent partial rigth-top");
+		adjacencyMap.put(isAdjacentPartialRightBottom(rectangle1, rectangle2), "adjacent partial rigth-bottom");
+		adjacencyMap.put(isAdjacentPartialTopRigth(rectangle1, rectangle2), "adjacent partial top-right");
+		adjacencyMap.put(isAdjacentPartialTopLeft(rectangle1, rectangle2), "adjacent partial top-left");
+		adjacencyMap.put(isAdjacentPartialLeftTop(rectangle1, rectangle2), "adjacent partial left-top");
+		adjacencyMap.put(isAdjacentPartialLeftBottom(rectangle1, rectangle2), "adjacent partial left-bottom");
+		adjacencyMap.put(isAdjacentPartialBottomLeft(rectangle1, rectangle2), "adjacent partial bottom-left");
+		adjacencyMap.put(isAdjacentPartialBottomRigth(rectangle1, rectangle2), "adjacent partial bottom-right");
 
-			return "proper adjacent right";
-
-		} else if (isProperAdjacentTop(rectangle1, rectangle2)) {
-
-			return "proper adjacent top";
-
-		} else if (isProperAdjacentLeft(rectangle1, rectangle2)) {
-			return "proper adjacent left";
-
-		} else if (isProperAdjacentBottom(rectangle1, rectangle2)) {
-			return "proper adjacent bottom";
-
-		}
-		// check sub line Adjacent in the four possible positions
-
-		if (isSubLineAdjacentRight(rectangle1, rectangle2)) {
-			return "adjacent sub-line Rigth";
-
-		} else if (isSubLineAdjacentTop(rectangle1, rectangle2)) {
-			return "adjacent sub-line top";
-
-		} else if (isSubLineAdjacentLeft(rectangle1, rectangle2)) {
-			return "adjacent sub-line left";
-
-		} else if (isSubLineAdjacentBottom(rectangle1, rectangle2)) {
-			return "adjacent sub-line bottom";
-
-		}
-		// check partial Adjacent in the eight possible positions
-
-		if (isAdjacentPartialRightTop(rectangle1, rectangle2)) {
-			return "adjacent partial rigth-top";
-
-		} else if (isAdjacentPartialRightBottom(rectangle1, rectangle2)) {
-			return "adjacent partial rigth-bottom";
-
-		} else if (isAdjacentPartialTopRigth(rectangle1, rectangle2)) {
-			return "adjacent partial top-right";
-
-		} else if (isAdjacentPartialTopLeft(rectangle1, rectangle2)) {
-			return "adjacent partial top-left";
-
-		} else if (isAdjacentPartialLeftTop(rectangle1, rectangle2)) {
-			return "adjacent partial left-top";
-
-		} else if (isAdjacentPartialLeftBottom(rectangle1, rectangle2)) {
-			return "adjacent partial left-bottom";
-
-		} else if (isAdjacentPartialBottomLeft(rectangle1, rectangle2)) {
-			return "adjacent partial bottom-left";
-
-		} else if (isAdjacentPartialBottomRigth(rectangle1, rectangle2)) {
-			return "adjacent partial bottom-right";
+		// validate if exist one type of adjacency and return the type that exists in
+		// the value of the hashMap
+		if (adjacencyMap.containsKey(true)) {
+			return adjacencyMap.get(true);
 
 		}
 
